@@ -1,0 +1,1 @@
+java -jar ficl.jar ... -dryrun true

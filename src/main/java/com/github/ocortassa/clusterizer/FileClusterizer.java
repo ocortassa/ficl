@@ -31,7 +31,7 @@ public class FileClusterizer {
 	private List<String> files = new ArrayList<>();
 	private Map<String, Cluster> clusters = new HashMap<>();
 
-	public void clusterByExtension(Command command) {
+	public void clusterByExtension(Command command) throws IOException {
 	    loadItemsToProcess(command.getBaseDir());
         List<ClusterElement> elements = new ArrayList<>();
         for (String file : files) {
@@ -56,6 +56,35 @@ public class FileClusterizer {
         // Apply cluster's elements moving
         if ( !command.isDryRun() ) {
             // TODO: file moving according to the clustering criteria
+
+            // Create output directory, if it doesn't exists
+            String outDirectory = command.getBaseDir() + "/out";
+            File outDirectoryFile = new File(outDirectory);
+            if ( !outDirectoryFile.exists() ) {
+                FileUtils.forceMkdir(outDirectoryFile);
+            }
+
+            // Cluster processing
+            for (Map.Entry<String, Cluster> cluster : clusters.entrySet()) {
+                for (ClusterElement element : cluster.getValue().getElements()) {
+                    LOGGER.info(" -- [{} -> {}] --", cluster.getKey(), element.getFileAbsolutePath() + "/" + element.getFileName());
+
+                    // Create extension directory, if it doesn't exists
+                    String extDirectory = outDirectory + "/" + cluster.getKey();
+                    File extDirectoryFile = new File(extDirectory);
+                    if ( !extDirectoryFile.exists() ) {
+                        FileUtils.forceMkdir(extDirectoryFile);
+                    }
+
+                    String newClusterElementPath = extDirectoryFile + "/" + element.getFileName();
+                    File newClusterElementPathFile = new File(newClusterElementPath);
+                    if ( !newClusterElementPathFile.exists() ) {
+                        FileUtils.copyFile(new File(element.getFileAbsolutePath()), newClusterElementPathFile);
+                    }
+
+                }
+            }
+
         } else {
             for (Map.Entry<String, Cluster> cluster : clusters.entrySet()) {
                 for (ClusterElement element : cluster.getValue().getElements()) {

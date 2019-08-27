@@ -15,9 +15,9 @@ public class FileClusterizerCliTest {
         try {
 
             String[] args = {
-                    "--baseDir", "C:\\Temp",
+                    "--baseDir", "C:\\Users\\Omar\\Desktop\\ebooks\\manuali-da-riorganizzare",
                     "--clusterBy", "extension",
-                    "--dryRun", "N"
+                    "--dryRun", "Y"
             };
             FileClusterizerCli.main(args);
             Assert.assertTrue(true);

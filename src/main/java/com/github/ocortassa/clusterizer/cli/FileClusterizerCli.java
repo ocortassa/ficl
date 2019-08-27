@@ -1,6 +1,7 @@
 package com.github.ocortassa.clusterizer.cli;
 
 import com.github.ocortassa.clusterizer.FileClusterizer;
+import io.leego.banana.BananaUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import picocli.CommandLine;
@@ -28,6 +29,8 @@ public class FileClusterizerCli implements Callable<Void> {
     public Void call() {
         try {
 
+            LOGGER.info( "\n" + BananaUtils.bananaify("FIle CLusterizer") );
+
             Command command = new Command();
             command.setBaseDir(baseDir);
             command.setClusterCriteria(clusterCriteria);
@@ -35,6 +38,7 @@ public class FileClusterizerCli implements Callable<Void> {
 
             FileClusterizer clusterizer = new FileClusterizer();
             if ("extension".equalsIgnoreCase(clusterCriteria)) {
+                LOGGER.info("Clusterize by Extension");
                 clusterizer.clusterByExtension(command);
             }
 

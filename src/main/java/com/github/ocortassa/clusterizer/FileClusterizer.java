@@ -104,7 +104,7 @@ public class FileClusterizer {
                             x -> x.toString()).collect(Collectors.toList()
                     );
 
-            items.forEach(LOGGER::debug);
+            items.forEach(LOGGER::trace);
             files = items;
 
         } catch (IOException e) {

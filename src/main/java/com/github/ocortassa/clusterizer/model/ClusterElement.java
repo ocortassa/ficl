@@ -23,6 +23,10 @@ public class ClusterElement {
         this.fileRelativePath = fileRelativePath;
     }
 
+    public String getFullFilePath() {
+        return fileAbsolutePath + "/" + fileName;
+    }
+
     public String getFileName() {
         return fileName;
     }

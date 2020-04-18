@@ -28,4 +28,24 @@ public class FileClusterizerCliTest {
         }
     }
 
+    @Test
+    public void doClusterizeByMetadataDateTest() {
+        try {
+
+            String[] args = {
+                    //"--baseDir", "C:\\Users\\Omar\\Desktop\\Foto 2011-11-25 10;22;42\\Foto\\2010-06 - Roma",
+                    "--baseDir", "C:\\Users\\Omar\\Desktop\\Foto 2011-11-25 10;22;42\\Foto",
+                    "--clusterBy", "metadataDate",
+                    //"--dryRun", "Y"
+                    "--dryRun", "N"
+            };
+            FileClusterizerCli.main(args);
+            Assert.assertTrue(true);
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            Assert.fail(e.getMessage());
+        }
+    }
+
 }

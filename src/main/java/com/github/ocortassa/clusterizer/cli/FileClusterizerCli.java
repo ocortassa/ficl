@@ -40,6 +40,9 @@ public class FileClusterizerCli implements Callable<Void> {
             if ("extension".equalsIgnoreCase(clusterCriteria)) {
                 LOGGER.info("Clusterize by Extension");
                 clusterizer.clusterByExtension(command);
+            } else if ("metadataDate".equalsIgnoreCase(clusterCriteria)) {
+                LOGGER.info("Clusterize by Metadata - Date");
+                clusterizer.clusterByMetadataDate(command);
             }
 
         } catch (Exception e) {
